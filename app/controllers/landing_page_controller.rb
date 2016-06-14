@@ -137,6 +137,12 @@ class LandingPageController < ActionController::Metal
             {"id" => "primary_color", "value" => "#347F9D"}
           end
         },
+        "inline_js" => -> (type, id, normalized_data) {
+          case id
+          when "location_search_js"
+            {"id" => "location_search_js", "value" => location_search_js.html_safe}
+          end
+        },
         "assets" => ->(type, id, normalized_data) {
           append_asset_path(Denormalizer.find_link(type, id, normalized_data))
         }
@@ -177,7 +183,8 @@ class LandingPageController < ActionController::Metal
           "background_image" => {"type" => "assets", "id" => "myheroimage"},
           "search_placeholder" => "What kind of turbojopo are you looking for?",
           "search_button" => "Search",
-          "search_path" => {"type" => "path", "id" => "search_path"}
+          "search_path" => {"type" => "path", "id" => "search_path"},
+          "location_search_js" => {"type" => "inline_js", "id" => "location_search_js"}
         },
 
         {
@@ -214,7 +221,7 @@ class LandingPageController < ActionController::Metal
         { "section" => {"type" => "sections", "id" => "footer"},
           "disabled" => false},
         { "section" => {"type" => "sections", "id" => "myhero1"},
-          "disabled" => true},
+          "disabled" => false},
         { "section" => {"type" => "sections", "id" => "myhero1"},
           "disabled" => true},
       ],
